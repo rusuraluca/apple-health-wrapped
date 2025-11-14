@@ -174,7 +174,7 @@ const Wrapped = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-2xl font-bold mb-6">Choose Theme</h3>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {(Object.keys(themes) as Theme[]).map((themeKey) => (
                 <button
                   key={themeKey}
@@ -195,11 +195,11 @@ const Wrapped = () => {
         </div>
       )}
 
-      <div className="absolute top-0 left-0 right-0 z-20 p-6 flex justify-between items-center">
+      <div className="absolute top-0 left-0 right-0 z-20 p-4 sm:p-6 flex justify-between items-center">
         <Button
           variant="secondary"
           onClick={() => navigate("/")}
-          className="bg-black/20 backdrop-blur-sm"
+          className="bg-black/20 backdrop-blur-sm text-white"
         >
           ← Home
         </Button>
@@ -209,7 +209,7 @@ const Wrapped = () => {
             variant="secondary"
             size="icon"
             onClick={() => setShowThemePicker(true)}
-            className="bg-black/20 backdrop-blur-sm"
+            className="bg-black/20 backdrop-blur-sm text-white"
             title="Change theme"
           >
             <Palette className="w-5 h-5" />
@@ -218,11 +218,30 @@ const Wrapped = () => {
             variant="secondary"
             size="icon"
             onClick={handleExport}
-            className="bg-black/20 backdrop-blur-sm"
+            className="bg-black/20 backdrop-blur-sm text-white"
             title="Export as PNG"
           >
             <Download className="w-5 h-5" />
           </Button>
+        </div>
+      </div>
+
+      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-full max-w-md px-12 z-10">
+        <div className="flex justify-center gap-2">
+          {cards.map((c, index) => (
+            <div
+              key={index}
+              className="h-1 rounded-full flex-1"
+              style={{
+                background:
+                  index === currentCard
+                    ? activeAccent
+                    : "rgba(255, 255, 255, 0.3)",
+                transition: "background 0.3s",
+              }}
+              onClick={() => setCurrentCard(index)}
+            />
+          ))}
         </div>
       </div>
 
@@ -237,7 +256,7 @@ const Wrapped = () => {
               variant="secondary"
               size="icon"
               onClick={prevCard}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-20 bg-black/20 backdrop-blur-sm"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-20 bg-black/20 backdrop-blur-sm text-white"
             >
               <ChevronLeft className="w-6 h-6" />
             </Button>
@@ -248,7 +267,7 @@ const Wrapped = () => {
               variant="secondary"
               size="icon"
               onClick={nextCard}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-20 bg-black/20 backdrop-blur-sm"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-20 bg-black/20 backdrop-blur-sm text-white"
             >
               <ChevronRight className="w-6 h-6" />
             </Button>
@@ -257,27 +276,11 @@ const Wrapped = () => {
           <div ref={cardRef}>
             <StoryCard card={current} theme={theme} healthData={healthData} />
           </div>
-
-          <div className="flex justify-center gap-2 mt-4">
-            {cards.map((c, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentCard(index)}
-                className={`h-2 rounded-full transition-all`}
-                style={{
-                  width: index === currentCard ? 32 : 8,
-                  background:
-                    index === currentCard ? activeAccent : "bg-black/20",
-                }}
-                aria-label={`Go to ${c.title}`}
-              />
-            ))}
-          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-1 left-0 right-0 text-center text-muted-foreground text-sm">
-        <p>Use arrow keys, click arrows, or swipe to navigate</p>
+      <div className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm">
+        <p>Swipe or use arrow keys to navigate</p>
       </div>
     </div>
   );

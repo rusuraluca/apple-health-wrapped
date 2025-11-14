@@ -179,30 +179,21 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
         return (
           <div className="relative flex flex-col items-center justify-center h-full px-8 overflow-hidden">
             <div className="absolute inset-0" style={bgStyle} />
-            <div className="absolute inset-0 opacity-30">
-              {[...Array(80)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute rounded-full bg-white"
-                  style={{
-                    width: Math.random() * 3 + 1 + "px",
-                    height: Math.random() * 3 + 1 + "px",
-                    top: Math.random() * 100 + "%",
-                    left: Math.random() * 100 + "%",
-                    animation: `float ${Math.random() * 8 + 6}s ease-in-out infinite`,
-                    animationDelay: Math.random() * 4 + "s",
-                    opacity: Math.random() * 0.7 + 0.3,
-                  }}
-                />
-              ))}
-            </div>
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "radial-gradient(ellipse at center, transparent 0%, black 100%)",
+                opacity: 0.2,
+              }}
+            />
+            <div className="starry-sky" />
             <div
               className={`relative z-10 text-center transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
             >
               <div className="mb-8 animate-float">
-                <Activity
+                <Sparkles
                   className="w-28 h-28 mx-auto text-white opacity-90"
                   strokeWidth={1.5}
                 />
@@ -210,8 +201,8 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
               <h1 className="text-8xl font-black mb-4 text-white tracking-tighter text-shadow-glow">
                 2025
               </h1>
-              <h2 className="text-6xl font-black mb-6 text-white tracking-tight">
-                Health Wrapped
+              <h2 className="text-5xl font-bold mb-6 text-white/90 tracking-tight">
+                Your Health Story
               </h2>
               <div
                 className="w-40 h-1.5 rounded-full mx-auto mb-8 animate-shimmer"
@@ -221,18 +212,9 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
                   backgroundSize: "200% 100%",
                 }}
               />
-              <p className="text-2xl text-white/90 font-medium">
-                Your year of transformation
+              <p className="text-2xl text-white/80 font-medium">
+                A look back at your year
               </p>
-              <div className="mt-12 flex gap-2 justify-center">
-                {[...Array(3)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-2 h-2 rounded-full bg-white animate-bounce"
-                    style={{ animationDelay: `${i * 0.2}s` }}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         );
@@ -516,10 +498,9 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
       case "sleep": {
         const avgHours = card.data.averageHours;
         const totalHours = Math.round(card.data.totalHours);
-        const sleepScore = Math.round((avgHours / 9) * 100);
+        const sleepScore = Math.round((avgHours / 8) * 100);
         const sleepQuality =
-          avgHours >= 7 ? "Elite" : avgHours >= 6 ? "Solid" : "Needs Work";
-        const qualityEmoji = avgHours >= 7 ? "🌟" : avgHours >= 6 ? "💤" : "😴";
+          avgHours >= 8 ? "Excellent" : avgHours >= 7 ? "Good" : "Needs Improvement";
 
         return (
           <div
@@ -528,21 +509,14 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
             }`}
           >
             <div className="absolute inset-0" style={bgStyle} />
-            <div className="absolute inset-0 opacity-30">
-              {[...Array(30)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute text-3xl"
-                  style={{
-                    top: Math.random() * 100 + "%",
-                    left: Math.random() * 100 + "%",
-                    animation: `glow ${Math.random() * 4 + 2}s ease-in-out infinite`,
-                    animationDelay: Math.random() * 3 + "s",
-                  }}
-                >
-                  ⭐
-                </div>
-              ))}
+            <div className="absolute inset-0 opacity-20">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: "radial-gradient(circle, #ffffff33 1px, transparent 1px)",
+                  backgroundSize: "20px 20px",
+                }}
+              />
             </div>
 
             <div className="relative z-10 flex-1 flex flex-col">
@@ -552,52 +526,41 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
                 </div>
                 <div>
                   <h3 className="text-3xl font-black text-white">Sleep</h3>
-                  <p className="text-white/80 text-sm">Rest & recover</p>
+                  <p className="text-white/80 text-sm">Recharge and Conquer</p>
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center space-y-6">
-                <div className="text-center">
-                  <div className="inline-block glass-card-strong rounded-3xl">
-                    <div className="text-7xl font-black text-white tracking-tighter text-shadow-glow">
+              <div className="flex-1 flex flex-col justify-center items-center">
+                <div className="relative w-64 h-64 mb-6">
+                  <RadialProgressBar
+                    progress={sleepScore}
+                    accentColor={accent}
+                  />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <p className="text-6xl font-black text-white text-shadow-glow">
                       {avgHours}h
-                    </div>
+                    </p>
+                    <p className="text-white/80">avg nightly</p>
                   </div>
-                  <p className="text-2xl text-white/90 font-bold">
-                    average nightly rest
-                  </p>
                 </div>
 
                 <div
-                  className="glass-card-strong rounded-3xl p-6 border-2"
+                  className="glass-card-strong rounded-3xl p-6 w-full"
                   style={{ borderColor: withAlpha(accent, 0.4) }}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <Sun className="w-7 h-7" style={{ color: accent }} />
-                      <p className="text-sm text-white/90 font-bold">
-                        Sleep Quality
-                      </p>
-                    </div>
-                    <span className="text-3xl">{qualityEmoji}</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-sm text-white/90 font-bold">
+                      Sleep Quality
+                    </p>
+                    <p
+                      className="font-bold text-lg"
+                      style={{ color: accent }}
+                    >
+                      {sleepQuality}
+                    </p>
                   </div>
-                  <p className="text-5xl text-white font-black mb-2">
-                    {sleepQuality}
-                  </p>
-                  <div className="mt-4 bg-white/20 rounded-full h-3 overflow-hidden">
-                    <div
-                      className="h-full transition-all duration-1000"
-                      style={{
-                        width: `${sleepScore}%`,
-                        background: `linear-gradient(90deg, ${withAlpha(
-                          accent,
-                          0.6
-                        )}, ${accent})`,
-                      }}
-                    />
-                  </div>
-                  <p className="text-white/70 text-sm mt-2 text-right">
-                    {sleepScore}/100
+                  <p className="text-white/70 text-xs">
+                    Based on an 8-hour goal
                   </p>
                 </div>
               </div>
@@ -802,42 +765,54 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
                 className="absolute inset-0"
                 style={{
                   backgroundImage:
-                    "linear-gradient(30deg, white 12%, transparent 12.5%, transparent 87%, white 87.5%, white), linear-gradient(150deg, white 12%, transparent 12.5%, transparent 87%, white 87.5%, white)",
-                  backgroundSize: "80px 140px",
+                    "linear-gradient(45deg, #ffffff22 25%, transparent 25%), linear-gradient(-45deg, #ffffff22 25%, transparent 25%)",
+                  backgroundSize: "40px 40px",
                 }}
               />
             </div>
 
             <div className="relative z-10 flex-1 flex flex-col">
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <div className="glass-card-strong rounded-3xl p-5 inline-block mb-4 animate-bounce-slow">
                   <Trophy className="w-14 h-14 text-white" strokeWidth={2.5} />
                 </div>
                 <h3 className="text-4xl font-black text-white mb-2">
-                  Year Highlights
+                  Your Year in Review
                 </h3>
-                <p className="text-white/80 text-lg">Your 2025 achievement showcase</p>
+                <p className="text-white/80 text-lg">
+                  A look at your achievements
+                </p>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center space-y-5">
-                <div className="glass-card rounded-3xl p-6 border" style={{ borderColor: withAlpha(accent, 0.35) }}>
+              <div className="flex-1 flex flex-col justify-center space-y-4">
+                <div
+                  className="glass-card rounded-3xl p-4"
+                  style={{ borderColor: withAlpha(accent, 0.35) }}
+                >
                   <div className="flex items-center gap-3 mb-3">
                     <Calendar className="w-6 h-6" style={{ color: accent }} />
                     <p className="text-xs text-white/90 font-bold uppercase tracking-wider">
-                      Workouts
+                      Weekly Activity
                     </p>
                   </div>
-                  <p className="text-xl text-white font-bold leading-tight">
-                    {card.data.yearComparison}
-                  </p>
+                  <BarChart
+                    data={card.data.weeklyActivity}
+                    accentColor={accent}
+                  />
                 </div>
-
-                <div className="glass-card-strong rounded-3xl p-6 border-2" style={{ borderColor: withAlpha(accent, 0.5) }}>
+                <div
+                  className="glass-card-strong rounded-3xl p-6 border-2"
+                  style={{ borderColor: withAlpha(accent, 0.5) }}
+                >
                   <p className="text-xs text-white/70 mb-2 uppercase tracking-wide">
-                    Next chapter
+                    Looking Ahead
                   </p>
-                  <p className="text-3xl text-white font-black mb-2">2026 Awaits! 🎉</p>
-                  <p className="text-white/80 text-sm">Keep pushing your limits</p>
+                  <p className="text-3xl text-white font-black mb-2">
+                    On to the Next Chapter! 🚀
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    Keep up the momentum
+                  </p>
                 </div>
               </div>
             </div>
@@ -854,6 +829,82 @@ const StoryCard = ({ card, theme, healthData }: StoryCardProps) => {
       <div className="rounded-[2.5rem] shadow-2xl text-white aspect-[9/16] w-full overflow-hidden transform transition-all duration-300 hover:scale-[1.02]">
         {renderCardContent()}
       </div>
+    </div>
+  );
+};
+
+const RadialProgressBar = ({
+  progress,
+  accentColor,
+}: {
+  progress: number;
+  accentColor: string;
+}) => {
+  const size = 256;
+  const strokeWidth = 20;
+  const center = size / 2;
+  const radius = center - strokeWidth;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (progress / 100) * circumference;
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <circle
+        stroke="rgba(255, 255, 255, 0.2)"
+        fill="transparent"
+        strokeWidth={strokeWidth}
+        r={radius}
+        cx={center}
+        cy={center}
+      />
+      <circle
+        stroke={accentColor}
+        fill="transparent"
+        strokeWidth={strokeWidth}
+        strokeDasharray={circumference}
+        strokeDashoffset={offset}
+        strokeLinecap="round"
+        r={radius}
+        cx={center}
+        cy={center}
+        style={{
+          transition: "stroke-dashoffset 0.8s ease-out",
+          transform: "rotate(-90deg)",
+          transformOrigin: "center",
+        }}
+      />
+    </svg>
+  );
+};
+
+const BarChart = ({
+  data,
+  accentColor,
+}: {
+  data: number[];
+  accentColor: string;
+}) => {
+  const maxValue = Math.max(...data);
+  const days = ["S", "M", "T", "W", "T", "F", "S"];
+
+  return (
+    <div className="flex justify-between items-end h-32">
+      {data.map((value, i) => (
+        <div key={i} className="flex-1 text-center">
+          <div
+            className="bg-white/20 rounded-t-lg mx-auto transition-all duration-500 hover:bg-white/40"
+            style={{
+              height: `${(value / maxValue) * 100}%`,
+              width: "70%",
+              background: `linear-gradient(to top, ${withAlpha(
+                accentColor,
+                0.5
+              )}, ${accentColor})`,
+            }}
+          />
+          <p className="text-xs text-white/70 mt-1">{days[i]}</p>
+        </div>
+      ))}
     </div>
   );
 };
