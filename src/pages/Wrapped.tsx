@@ -29,24 +29,24 @@ const ACCENTS: Record<
   { warm: string; glow: string; cool: string; love: string; calm: string }
 > = {
   sunset: {
-    warm: "#FDE047",
-    glow: "#F59E0B",
-    cool: "#93C5FD",
+    warm: "#C84747FF",
+    glow: "#EC8A72FF",
+    cool: "#FF6262FF",
     love: "#FB7185",
-    calm: "#A78BFA",
+    calm: "#FDA160FF",
   },
   ocean: {
     warm: "#7DD3FC",
     glow: "#38BDF8",
     cool: "#93C5FD",
     love: "#60A5FA",
-    calm: "#6EE7B7",
+    calm: "#6ED9E7FF",
   },
   forest: {
     warm: "#A7F3D0",
     glow: "#86EFAC",
     cool: "#BBF7D0",
-    love: "#FCA5A5",
+    love: "#6EE7B7",
     calm: "#A7F3D0",
   },
 };
@@ -266,8 +266,7 @@ const Wrapped = () => {
                 className={`h-2 rounded-full transition-all`}
                 style={{
                   width: index === currentCard ? 32 : 8,
-                  background:
-                    index === currentCard ? activeAccent : "bg-black/20",
+                  background: activeAccent,
                 }}
                 aria-label={`Go to ${c.title}`}
               />

@@ -42,27 +42,27 @@ interface StoryCardProps {
 const THEME_PALETTES = {
   sunset: {
     stops: [
-      ["#FF8A00", "#E52E71"], // 0 intro / insights
+      ["#FF8A00", "#FF512F"], // 0 intro / insights
       ["#FF512F", "#DD2476"], // 1 steps
-      ["#FC466B", "#3F5EFB"], // 2 energy/heart
+      ["#FC466B", "#FB613FFF"], // 2 energy/heart
       ["#FFD200", "#F7971E"], // 3 workouts
-      ["#F953C6", "#B91D73"], // 4 sleep/mindful
-      ["#F43B47", "#453A94"], // 5 spare
+      ["#F95361FF", "#EEB045FF"], // 4 sleep/mindful
+      ["#F43B47", "#944A3AFF"], // 5 spare
     ],
     accents: {
       warm: "#FDE047", // yellow-400
       glow: "#F59E0B", // amber-500
-      cool: "#93C5FD", // blue-300
-      love: "#FB7185", // rose-400
-      calm: "#A78BFA", // violet-400
+      cool: "#FFB367FF", // blue-300
+      love: "#FB7371FF", // rose-400
+      calm: "#EF724FFF", // violet-400
     },
   },
   ocean: {
     stops: [
       ["#00C6FF", "#0072FF"], // 0 intro / insights
-      ["#2AF598", "#009EFD"], // 1 steps
+      ["#2ABBF5FF", "#009EFD"], // 1 steps
       ["#00D2FF", "#3A7BD5"], // 2 energy/heart
-      ["#43CEA2", "#185A9D"], // 3 workouts
+      ["#43A2CEFF", "#185A9D"], // 3 workouts
       ["#3A7BD5", "#3A6073"], // 4 sleep/mindful
       ["#0F2027", "#203A43"], // 5 spare
     ],
@@ -71,7 +71,7 @@ const THEME_PALETTES = {
       glow: "#38BDF8", // sky-400
       cool: "#93C5FD", // blue-300
       love: "#60A5FA", // blue-400
-      calm: "#6EE7B7", // emerald-300
+      calm: "#6ED9E7FF",
     },
   },
   forest: {
@@ -87,7 +87,7 @@ const THEME_PALETTES = {
       warm: "#A7F3D0", // green-200
       glow: "#86EFAC", // green-300
       cool: "#BBF7D0", // lime-200
-      love: "#FCA5A5", // red-300
+      love: "#6EE7B7",
       calm: "#A7F3D0", // green-200
     },
   },
